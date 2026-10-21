@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Alunos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .voltar {
+            color: #14946a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 8px;
+            background-color: #8ff0c8;
+            border: 1px solid #222;
+            padding: 2px 12px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            line-height: 1.5;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .comando {
+            display: inline-block;
+            background-color: #1c2128;
+            color: #8ff0c8;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 6px 0;
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #8ff0c8;
+            color: #111;
+            border: 1px solid #222;
+            padding: 8px 18px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .botao:hover {
+            background-color: #6fe0b2;
+        }
+
+        pre {
+            background-color: #1c2128;
+            color: #e6edf3;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html#projetos" class="voltar">← Voltar ao portfólio</a>
+
+        <h1>Sistema de cadastro de alunos no terminal</h1>
+        <span class="tag">C# e MySQL</span>
+
+        <h2>Como funciona</h2>
+        <p>
+            Um programa que cadastra, lista, edita e exclui registros, salvando os
+            dados em um banco de dados. Tudo é feito por um menu no terminal.
+        </p>
+
+        <h2>Funcionalidades</h2>
+        <ul>
+            <li>Cadastrar aluno com nome, idade e curso</li>
+            <li>Listar todos os alunos cadastrados</li>
+            <li>Editar os dados de um aluno pelo ID</li>
+            <li>Excluir um aluno pelo ID, com confirmação antes de apagar</li>
+            <li>Os dados ficam salvos em um banco MySQL</li>
+        </ul>
+
+        <h2>Como usar</h2>
+        <p>Baixe os dois arquivos. Rode o banco.sql no MySQL para criar o banco e, no Program.cs, troque SUA_SENHA pela senha do seu MySQL. Depois, no terminal, dentro da pasta do projeto, digite:</p>
+        <span class="comando">dotnet run</span>
+        <p>Depois é só escolher as opções do menu.</p>
+
+        <a href="Program.cs" download class="botao">BAIXAR PROGRAM.CS</a>
+        <a href="banco.sql" download class="botao">BAIXAR BANCO.SQL</a>
+
+        <h2>Banco de dados</h2>
+        <pre>CREATE DATABASE IF NOT EXISTS escola;
+
+USE escola;
+
+CREATE TABLE IF NOT EXISTS alunos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    idade INT NOT NULL,
+    curso VARCHAR(100) NOT NULL
+);</pre>
+
+        <h2>Código</h2>
+        <pre>using System;
+using MySql.Data.MySqlClient;
+
+class Program
+{
+    static string conexao = "server=localhost;database=escola;user=root;password=SUA_SENHA;";
+
+    static void Main()
+    {
+        int opcao = -1;
+
+        while (opcao != 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("===== CADASTRO DE ALUNOS =====");
+            Console.WriteLine("1 - Cadastrar aluno");
+            Console.WriteLine("2 - Listar alunos");
+            Console.WriteLine("3 - Editar aluno");
+            Console.WriteLine("4 - Excluir aluno");
+            Console.WriteLine("0 - Sair");
+            Console.Write("Escolha uma opcao: ");
+
+            opcao = LerNumero();
+
+            if (opcao == 1)
+            {
+                Cadastrar();
+            }
+            else if (opcao == 2)
+            {
+                Listar();
+            }
+            else if (opcao == 3)
+            {
+                Editar();
+            }
+            else if (opcao == 4)
+            {
+                Excluir();
+            }
+            else if (opcao == 0)
+            {
+                Console.WriteLine("Saindo...");
+            }
+            else
+            {
+                Console.WriteLine("Opcao invalida!");
+            }
+        }
+    }
+
+    static int LerNumero()
+    {
+        string texto = Console.ReadLine();
+        int numero;
+
+        if (int.TryParse(texto, out numero))
+        {
+            return numero;
+        }
+
+        return -1;
+    }
+
+    static void Cadastrar()
+    {
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Idade: ");
+        int idade = LerNumero();
+
+        Console.Write("Curso: ");
+        string curso = Console.ReadLine();
+
+        MySqlConnection con = new MySqlConnection(conexao);
+        con.Open();
+
+        string sql = "INSERT INTO alunos (nome, idade, curso) VALUES (@nome, @idade, @curso)";
+        MySqlCommand cmd = new MySqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("@nome", nome);
+        cmd.Parameters.AddWithValue("@idade", idade);
+        cmd.Parameters.AddWithValue("@curso", curso);
+        cmd.ExecuteNonQuery();
+
+        con.Close();
+
+        Console.WriteLine("Aluno cadastrado com sucesso!");
+    }
+
+    static void Listar()
+    {
+        MySqlConnection con = new MySqlConnection(conexao);
+        con.Open();
+
+        string sql = "SELECT id, nome, idade, curso FROM alunos";
+        MySqlCommand cmd = new MySqlCommand(sql, con);
+        MySqlDataReader leitor = cmd.ExecuteReader();
+
+        Console.WriteLine();
+        Console.WriteLine("ID | NOME | IDADE | CURSO");
+        Console.WriteLine("--------------------------");
+
+        int total = 0;
+
+        while (leitor.Read())
+        {
+            int id = leitor.GetInt32("id");
+            string nome = leitor.GetString("nome");
+            int idade = leitor.GetInt32("idade");
+            string curso = leitor.GetString("curso");
+
+            Console.WriteLine(id + " | " + nome + " | " + idade + " | " + curso);
+            total++;
+        }
+
+        if (total == 0)
+        {
+            Console.WriteLine("Nenhum aluno cadastrado.");
+        }
+
+        leitor.Close();
+        con.Close();
+    }
+
+    static void Editar()
+    {
+        Listar();
+
+        Console.Write("Digite o ID do aluno que deseja editar: ");
+        int id = LerNumero();
+
+        Console.Write("Novo nome: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Nova idade: ");
+        int idade = LerNumero();
+
+        Console.Write("Novo curso: ");
+        string curso = Console.ReadLine();
+
+        MySqlConnection con = new MySqlConnection(conexao);
+        con.Open();
+
+        string sql = "UPDATE alunos SET nome = @nome, idade = @idade, curso = @curso WHERE id = @id";
+        MySqlCommand cmd = new MySqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("@nome", nome);
+        cmd.Parameters.AddWithValue("@idade", idade);
+        cmd.Parameters.AddWithValue("@curso", curso);
+        cmd.Parameters.AddWithValue("@id", id);
+        int linhas = cmd.ExecuteNonQuery();
+
+        con.Close();
+
+        if (linhas &gt; 0)
+        {
+            Console.WriteLine("Aluno atualizado!");
+        }
+        else
+        {
+            Console.WriteLine("Nenhum aluno encontrado com esse ID.");
+        }
+    }
+
+    static void Excluir()
+    {
+        Listar();
+
+        Console.Write("Digite o ID do aluno que deseja excluir: ");
+        int id = LerNumero();
+
+        Console.Write("Tem certeza? (s/n): ");
+        string resposta = Console.ReadLine();
+
+        if (resposta != "s")
+        {
+            Console.WriteLine("Exclusao cancelada.");
+            return;
+        }
+
+        MySqlConnection con = new MySqlConnection(conexao);
+        con.Open();
+
+        string sql = "DELETE FROM alunos WHERE id = @id";
+        MySqlCommand cmd = new MySqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("@id", id);
+        int linhas = cmd.ExecuteNonQuery();
+
+        con.Close();
+
+        if (linhas &gt; 0)
+        {
+            Console.WriteLine("Aluno excluido!");
+        }
+        else
+        {
+            Console.WriteLine("Nenhum aluno encontrado com esse ID.");
+        }
+    }
+}</pre>
+    </div>
+</body>
+</html>

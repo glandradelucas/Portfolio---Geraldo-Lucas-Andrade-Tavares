@@ -1,0 +1,654 @@
+/* =========================================================
+   CORES DO SITE (variáveis)
+   Trocando os valores aqui, muda o site inteiro.
+   ========================================================= */
+:root {
+    --verde: #8ff0c8;          /* verde-menta dos botões e caixas */
+    --verde-escuro: #14946a;   /* contorno dos textos verdes */
+    --fundo: #ffffff;
+    --texto: #111111;
+    --borda: #2b2b2b;
+    --card: #f3f3f3;
+    --linha-cinza: #e6e6e6;
+}
+
+/* Cores quando o MODO ESCURO está ligado */
+body.escuro {
+    --fundo: #121417;
+    --texto: #f2f2f2;
+    --borda: #8ff0c8;
+    --card: #1d2126;
+    --linha-cinza: #2a2f35;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    background-color: var(--fundo);
+    color: var(--texto);
+    transition: background-color 0.4s, color 0.4s;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+}
+
+section {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+/* =========================================================
+   PEÇAS QUE SE REPETEM
+   ========================================================= */
+
+/* Texto verde com contorno (ex: "Quem sou eu?") */
+.texto-contorno {
+    color: var(--verde);
+    -webkit-text-stroke: 1px var(--verde-escuro);
+    font-weight: 700;
+}
+
+.rotulo {
+    font-size: 22px;
+}
+
+.titulo-secao {
+    font-size: 34px;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.titulo-secao.grande {
+    font-size: 46px;
+    line-height: 1;
+}
+
+.recuo {
+    margin-left: 20px;
+}
+
+.descricao-secao {
+    font-size: 18px;
+    max-width: 620px;
+    margin-top: 16px;
+}
+
+/* Linhas verdes decorativas */
+.linha-verde {
+    display: block;
+    height: 3px;
+    background-color: var(--verde);
+}
+
+.linha-titulo {
+    width: 90px;
+    margin-top: 6px;
+}
+
+.linha-titulo.curta {
+    width: 50px;
+}
+
+/* Caixinha verde onde ficam os ícones */
+.caixa-icone {
+    width: 80px;
+    height: 80px;
+    background-color: var(--verde);
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa-icone img {
+    width: 60px;
+    height: 60px;
+}
+
+.caixa-icone.pequena {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.caixa-icone.pequena img {
+    width: 48px;
+    height: 48px;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+.cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--fundo);
+    border-top: 1px solid var(--linha-cinza);
+    border-bottom: 1px solid #555;
+    padding: 14px 10px 14px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.4s;
+}
+
+.menu {
+    display: flex;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.link-menu:hover {
+    color: var(--verde-escuro);
+}
+
+.botao-tema {
+    font-family: 'Lexend', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: var(--verde);
+    color: #111;
+    border: 1px solid #222;
+    padding: 6px 14px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   INÍCIO
+   ========================================================= */
+.inicio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--linha-cinza);
+}
+
+.etiqueta-portfolio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.linha-etiqueta {
+    width: 50px;
+    height: 1px;
+    background-color: #888;
+}
+
+.linha-etiqueta.longa {
+    width: 150px;
+}
+
+.texto-contorno.pequeno {
+    font-size: 13px;
+}
+
+.nome {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 12px;
+}
+
+.subtitulo {
+    font-size: 24px;
+    min-height: 32px;
+}
+
+/* Cursor piscando do efeito de digitação */
+.cursor {
+    animation: piscar 0.8s infinite;
+}
+
+@keyframes piscar {
+    50% { opacity: 0; }
+}
+
+.apresentacao {
+    font-size: 16px;
+    max-width: 330px;
+    margin-top: 12px;
+    line-height: 1.4;
+}
+
+.botao-verde {
+    display: inline-block;
+    margin-top: 12px;
+    background-color: var(--verde);
+    color: #111;
+    border: 1px solid #222;
+    padding: 4px 16px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.botao-verde:hover {
+    background-color: #6fe0b2;
+}
+
+.linha-inicio {
+    width: 290px;
+    height: 1px;
+    margin-top: 20px;
+    background-color: var(--verde-escuro);
+}
+
+/* ---------- Imagem da janela de código ---------- */
+.area-codigo {
+    display: flex;
+    justify-content: center;
+}
+
+.area-codigo img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+}
+
+/* =========================================================
+   SOBRE MIM
+   ========================================================= */
+.sobre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.sobre .titulo-secao {
+    margin-left: 18px;
+}
+
+.sobre .linha-titulo {
+    margin-left: 18px;
+}
+
+.trajetoria {
+    margin-top: 40px;
+}
+
+.paragrafos {
+    position: relative;
+    padding-left: 14px;
+    margin-top: 10px;
+    max-width: 330px;
+}
+
+.paragrafos p {
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 24px;
+}
+
+.barra-lateral {
+    position: absolute;
+    width: 2px;
+    background-color: var(--verde);
+}
+
+.barra-1 {
+    left: 6px;
+    top: 30px;
+    height: 70px;
+}
+
+.barra-2 {
+    right: -20px;
+    top: 120px;
+    height: 60px;
+}
+
+.linha-paragrafo {
+    width: 70px;
+    margin-left: 240px;
+}
+
+/* ---------- Foto ---------- */
+.sobre-foto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sobre-foto img {
+    width: 270px;
+    height: 360px;
+    object-fit: cover;
+    border: 2px solid var(--verde);
+    border-radius: 8px;
+}
+
+.linha-foto-cima {
+    width: 105px;
+    align-self: flex-end;
+    margin-right: 40px;
+    margin-bottom: 10px;
+}
+
+.linha-foto-baixo {
+    width: 70px;
+    margin-top: 10px;
+    margin-right: 180px;
+}
+
+/* =========================================================
+   HABILIDADES
+   ========================================================= */
+.habilidades .titulo-secao,
+.habilidades .linha-titulo,
+.habilidades .descricao-secao {
+    margin-left: 8px;
+}
+
+.lista-habilidades {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+}
+
+.card-habilidade {
+    background-color: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s, margin 0.3s;
+}
+
+/* Card sobe um pouquinho ao passar o mouse */
+.card-habilidade:hover {
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.card-habilidade h3 {
+    font-size: 22px;
+    margin-top: 4px;
+}
+
+.card-habilidade p {
+    font-size: 11px;
+    margin-top: 10px;
+    line-height: 1.3;
+}
+
+.linha-habilidades {
+    width: 60%;
+    margin-top: 18px;
+    margin-left: 8px;
+}
+
+/* =========================================================
+   PROJETOS
+   ========================================================= */
+.linha-projetos-cima {
+    width: 330px;
+    margin-top: 16px;
+}
+
+.lista-projetos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1140px;
+    margin-top: 20px;
+}
+
+.card-projeto {
+    cursor: pointer;
+    background-color: var(--card);
+    border: 2px solid var(--verde);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.card-projeto:hover {
+    border-color: var(--verde-escuro);
+}
+
+.card-projeto h3 {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-bottom: 2px solid var(--verde);
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo-projeto {
+    flex: 1;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+}
+
+.conteudo-projeto p {
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.tecnologias {
+    font-size: 15px;
+}
+
+.botoes-projeto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid var(--verde);
+    padding: 8px 0;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+/* Ao passar o mouse no card, a parte de baixo fica verde */
+.card-projeto:hover .botoes-projeto {
+    background-color: var(--verde);
+    color: #111;
+}
+
+.linha-projetos-baixo {
+    width: 52%;
+    margin-top: 6px;
+}
+
+/* =========================================================
+   CONTATO
+   ========================================================= */
+.contato {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 60px;
+}
+
+.conversar {
+    font-size: 18px;
+    margin-left: 18px;
+}
+
+.contato .titulo-secao {
+    margin-left: 46px;
+}
+
+.contato .linha-titulo {
+    width: 100px;
+    margin-left: 30px;
+}
+
+.descricao-contato {
+    font-size: 16px;
+    max-width: 330px;
+    margin-top: 6px;
+    margin-bottom: 30px;
+}
+
+.item-contato {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.item-contato:hover .caixa-icone {
+    background-color: #6fe0b2;
+}
+
+.item-contato p {
+    font-size: 15px;
+}
+
+.titulo-contato {
+    margin-bottom: 4px;
+}
+
+.linha-contato {
+    width: 325px;
+}
+
+/* =========================================================
+   EFEITOS DO JAVASCRIPT
+   ========================================================= */
+
+/* Seções começam escondidas e aparecem ao rolar a página */
+.aparecer {
+    opacity: 0;
+    top: 40px;
+    transition: opacity 0.8s, top 0.8s;
+}
+
+.aparecer.visivel {
+    opacity: 1;
+    top: 0;
+}
+
+/* Aviso "Copiado!" */
+.aviso {
+    position: fixed;
+    left: 50%;
+    bottom: -60px;
+    margin-left: -70px;
+    width: 140px;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--verde);
+    color: #111;
+    border: 1px solid #222;
+    border-radius: 6px;
+    opacity: 0;
+    transition: bottom 0.4s, opacity 0.4s;
+    z-index: 20;
+}
+
+.aviso.mostrar {
+    bottom: 30px;
+    opacity: 1;
+}
+
+/* Botão voltar ao topo */
+.botao-topo {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    background-color: var(--verde);
+    color: #111;
+    border: 1px solid #222;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    z-index: 20;
+}
+
+.botao-topo.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =========================================================
+   CELULAR / TELAS PEQUENAS
+   ========================================================= */
+@media (max-width: 900px) {
+    .cabecalho {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 13px;
+    }
+
+    .inicio,
+    .sobre,
+    .contato {
+        grid-template-columns: 1fr;
+    }
+
+    .lista-habilidades {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lista-projetos {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .nome {
+        font-size: 30px;
+    }
+
+    .linha-projetos-cima,
+    .linha-contato,
+    .linha-inicio {
+        width: 100%;
+    }
+}

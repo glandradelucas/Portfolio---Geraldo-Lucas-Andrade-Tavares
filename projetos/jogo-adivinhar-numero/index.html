@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhar o Número</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .voltar {
+            color: #14946a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 8px;
+            background-color: #8ff0c8;
+            border: 1px solid #222;
+            padding: 2px 12px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            line-height: 1.5;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .comando {
+            display: inline-block;
+            background-color: #1c2128;
+            color: #8ff0c8;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 6px 0;
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #8ff0c8;
+            color: #111;
+            border: 1px solid #222;
+            padding: 8px 18px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .botao:hover {
+            background-color: #6fe0b2;
+        }
+
+        pre {
+            background-color: #1c2128;
+            color: #e6edf3;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html#projetos" class="voltar">← Voltar ao portfólio</a>
+
+        <h1>Jogo de adivinhar o número</h1>
+        <span class="tag">Python</span>
+
+        <h2>Como funciona</h2>
+        <p>
+            Um jogo no terminal onde o computador sorteia um número de 1 a 100 e o
+            jogador tenta adivinhar, recebendo dicas de “maior” ou “menor” até acertar.
+        </p>
+
+        <h2>Funcionalidades</h2>
+        <ul>
+            <li>Sorteia um número novo a cada partida</li>
+            <li>Dá dicas se o número secreto é maior ou menor que o chute</li>
+            <li>Avisa quando a pessoa digita algo que não é número</li>
+            <li>Conta as tentativas e mostra uma mensagem no final de acordo com o desempenho</li>
+        </ul>
+
+        <h2>Como jogar</h2>
+        <p>Baixe o arquivo e, no terminal, dentro da pasta dele, digite:</p>
+        <span class="comando">python jogo.py</span>
+        <p>Depois é só digitar seus chutes até acertar o número.</p>
+
+        <a href="jogo.py" download class="botao">BAIXAR JOGO.PY</a>
+
+        <h2>Código</h2>
+        <pre>import random
+
+numero_secreto = random.randint(1, 100)
+tentativas = 0
+acertou = False
+
+print(&quot;===== ADIVINHE O NÚMERO =====&quot;)
+print(&quot;Pensei em um número de 1 a 100. Tente adivinhar!&quot;)
+
+while acertou == False:
+    chute = input(&quot;\nSeu chute: &quot;)
+
+ 
+    if not chute.isdigit():
+        print(&quot;Digite apenas números!&quot;)
+        continue
+
+    chute = int(chute)
+    tentativas = tentativas + 1
+
+    if chute == numero_secreto:
+        acertou = True
+    elif chute &lt; numero_secreto:
+        print(&quot;O número secreto é MAIOR.&quot;)
+    else:
+        print(&quot;O número secreto é MENOR.&quot;)
+
+print(&quot;\nParabéns, você acertou! O número era&quot;, numero_secreto)
+print(&quot;Você precisou de&quot;, tentativas, &quot;tentativas.&quot;)
+
+if tentativas &lt;= 5:
+    print(&quot;Muito bom!&quot;)
+elif tentativas &lt;= 10:
+    print(&quot;Mandou bem!&quot;)
+else:
+    print(&quot;Na próxima você consegue em menos tentativas!&quot;)</pre>
+    </div>
+</body>
+</html>

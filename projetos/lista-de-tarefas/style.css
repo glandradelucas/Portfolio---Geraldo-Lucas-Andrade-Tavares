@@ -1,0 +1,115 @@
+/* ===== Tema claro (padrão) ===== */
+body {
+    background-color: #f2f2f2;
+    color: #222222;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===== Tema escuro ===== */
+/* Quando o body tem a classe "escuro", essas cores substituem as de cima */
+body.escuro {
+    background-color: #1e1e1e;
+    color: #eeeeee;
+}
+
+body.escuro .container {
+    background-color: #2c2c2c;
+}
+
+body.escuro input {
+    background-color: #3a3a3a;
+    color: #eeeeee;
+    border-color: #555555;
+}
+
+body.escuro li {
+    border-color: #444444;
+}
+
+/* ===== Layout ===== */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.adicionar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2e9e5b;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+#botaoTema {
+    background-color: #555555;
+}
+
+/* ===== Lista ===== */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+li span {
+    flex: 1;
+}
+
+/* Tarefa concluída fica riscada */
+li.concluida span {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.remover {
+    background-color: #d9534f;
+    padding: 5px 10px;
+}
+
+#contador {
+    font-size: 14px;
+    opacity: 0.7;
+}
